@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">NFCInventory</string>
+    <string name="new_tag_found">NewTagFound</string>
+    <string name="replace_current_tag">Replace</string>
+    <string name="instructions">Instructionsy</string>
+    <string name="computer_name_label">ComputerName</string>
+    <string name="computer_ram_label">ComputerRam</string>
+    <string name="computer_processor">ComputerProcessor</string>
+    <string name="computer_label">ComputerLabel</string>
+    <string name="write_to_tag_button_label">WriteTag</string>
+    <string name="computer_processor_label">computerProcessor</string>
+    <string name="ready_to_write">Ready tp Write</string>
+    <string name="ready_to_write_instructions">Ready to Write Instructions</string>
+    <string name="warning_nfc_is_off">No hay NFC</string>
+    <string name="turn_on_nfc">Enciendeme</string>
+</resources>

@@ -28,10 +28,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-/**
- * @author Pearl Chen &#60;<a
- *         href="mailto:dotdotdotspace@gmail.com">mailto:dotdotdotspace@gmail.com</a>&#62;
- */
+
 public class MainActivity extends Activity
 {
 
@@ -68,8 +65,7 @@ public class MainActivity extends Activity
         // get an instance of the context's cached NfcAdapter
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
-        // if null is returned this demo cannot run. Use this check if the
-        // "required" parameter of <uses-feature> in the manifest is not set
+
         if (mNfcAdapter == null)
         {
             Toast.makeText(this,
@@ -82,14 +78,11 @@ public class MainActivity extends Activity
         // check if NFC is enabled
         checkNfcEnabled();
 
-        // Handle foreground NFC scanning in this activity by creating a
-        // PendingIntent with FLAG_ACTIVITY_SINGLE_TOP flag so each new scan
-        // is not added to the Back Stack
+
         mNfcPendingIntent = PendingIntent.getActivity(this, 0, new Intent(this,
                 getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
-        // Create intent filter to handle NDEF NFC tags detected from inside our
-        // application when in "read mode":
+
         IntentFilter ndefDetected = new IntentFilter(
                 NfcAdapter.ACTION_NDEF_DISCOVERED);
         try
@@ -100,8 +93,7 @@ public class MainActivity extends Activity
             throw new RuntimeException("Could not add MIME type.", e);
         }
 
-        // Create intent filter to detect any NFC tag when attempting to write
-        // to a tag in "write mode"
+
         IntentFilter tagDetected = new IntentFilter(
                 NfcAdapter.ACTION_TAG_DISCOVERED);
 
@@ -123,7 +115,7 @@ public class MainActivity extends Activity
 
         if (getIntent().getAction() != null)
         {
-            // tag received when app is not running and not in the foreground:
+
             if (getIntent().getAction().equals(
                     NfcAdapter.ACTION_NDEF_DISCOVERED))
             {
@@ -134,9 +126,7 @@ public class MainActivity extends Activity
             }
         }
 
-        // Enable priority for current activity to detect scanned tags
-        // enableForegroundDispatch( activity, pendingIntent,
-        // intentsFiltersArray, techListsArray );
+
         mNfcAdapter.enableForegroundDispatch(this, mNfcPendingIntent,
                 mReadTagFilters, null);
 
@@ -151,11 +141,7 @@ public class MainActivity extends Activity
         mNfcAdapter.disableForegroundDispatch(this);
     }
 
-    /*
-     * This is called for activities that set launchMode to "singleTop" or
-     * "singleTask" in their manifest package, or if a client used the
-     * FLAG_ACTIVITY_SINGLE_TOP flag when calling startActivity(Intent).
-     */
+
     @Override
     protected void onNewIntent(Intent intent)
     {
@@ -188,9 +174,7 @@ public class MainActivity extends Activity
         }
     }
 
-    /*
-     * **** READING MODE METHODS ****
-     */
+
     NdefMessage[] getNdefMessagesFromIntent(Intent intent)
     {
         // Parse the intent
@@ -210,7 +194,7 @@ public class MainActivity extends Activity
                 }
             } else
             {
-                // Unknown tag type
+
                 byte[] empty = new byte[] {};
                 NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN,
                         empty, empty, empty);
@@ -235,8 +219,7 @@ public class MainActivity extends Activity
                     @Override
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        // use the current values in the NDEF payload
-                        // to update the text fields
+
                         String payload = new String(msg.getRecords()[0]
                                 .getPayload());
                         setTextFieldValues(payload);
@@ -284,9 +267,7 @@ public class MainActivity extends Activity
 
     }
 
-    /*
-     * **** WRITING MODE METHODS ****
-     */
+
 
     private View.OnClickListener mTagWriter = new View.OnClickListener()
     {
@@ -326,12 +307,12 @@ public class MainActivity extends Activity
     private NdefMessage createNdefFromJson()
     {
 
-        // get the values from the form's text fields:
+
         Editable nameField = mName.getText();
         Editable ramField = mRAM.getText();
         Editable processorField = mProcessor.getText();
 
-        // create a JSON object out of the values:
+
         JSONObject computerSpecs = new JSONObject();
         try
         {
@@ -343,8 +324,7 @@ public class MainActivity extends Activity
             Log.e(TAG, "Could not create JSON: ", e);
         }
 
-        // create a new NDEF record and containing NDEF message using the app's
-        // custom MIME type:
+
         String mimeType = "application/root.gast.playground.nfc";
         byte[] mimeBytes = mimeType.getBytes(Charset.forName("UTF-8"));
         String data = computerSpecs.toString();
